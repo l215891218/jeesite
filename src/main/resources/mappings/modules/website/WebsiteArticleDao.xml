@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.website.dao.WebsiteArticleDao">
+    
+	<sql id="websiteArticleColumns">
+		a.article_title AS "articleTitle",
+		a.create_date AS "createDate",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.id AS "id",
+		a.article_author AS "articleAuthor",
+		a.article_content AS "articleContent",
+		a.article_dept AS "articleDept",
+		a.article_edit AS "articleEdit",
+		a.article_key AS "articleKey",
+		a.article_tac AS "articleTac",
+		a.article_tacsign AS "articleTacsign",
+		a.article_act_url AS "articleActUrl",
+		a.article_act_date AS "articleActDate",
+		a.article_abstract AS "articleAbstract",
+		a.article_source AS "articleSource",
+		a.article_source_sign AS "articleSourceSign",
+		a.main_url AS "mainUrl",
+		a.video_url AS "videoUrl",
+		a.video_image_url AS "videoImageUrl",
+		a.vistinum AS "vistinum",
+		a.dotop AS "dotop",
+		a.item_no AS "itemNo",
+		a.flow_sign AS "flowSign",
+		a.source AS "source",
+		a.net_sign AS "netSign",
+		a.pipe_sing AS "pipeSing"
+	</sql>
+	
+	<sql id="websiteArticleJoins">
+		LEFT JOIN sys_user u8 ON u8.id = a.article_author
+	</sql>
+    
+	<select id="get" resultType="WebsiteArticle">
+		SELECT 
+			<include refid="websiteArticleColumns"/>
+		FROM website_tb_article a
+		<include refid="websiteArticleJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="WebsiteArticle">
+		SELECT 
+			<include refid="websiteArticleColumns"/>
+		FROM website_tb_article a
+		<include refid="websiteArticleJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="articleTitle != null and articleTitle != ''">
+				AND a.article_title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{articleTitle}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{articleTitle}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{articleTitle},'%')</if>
+			</if>
+			<if test="articleContent != null and articleContent != ''">
+				AND a.article_content = #{articleContent}
+			</if>
+			<if test="articleDept != null and articleDept != ''">
+				AND a.article_dept = #{articleDept}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="WebsiteArticle">
+		SELECT 
+			<include refid="websiteArticleColumns"/>
+		FROM website_tb_article a
+		<include refid="websiteArticleJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO website_tb_article(
+			article_title,
+			create_date,
+			create_by,
+			update_by,
+			update_date,
+			del_flag,
+			id,
+			article_author,
+			article_content,
+			article_dept,
+			article_edit,
+			article_key,
+			article_tac,
+			article_tacsign,
+			article_act_url,
+			article_act_date,
+			article_abstract,
+			article_source,
+			article_source_sign,
+			main_url,
+			video_url,
+			video_image_url,
+			vistinum,
+			dotop,
+			item_no,
+			flow_sign,
+			source,
+			net_sign,
+			pipe_sing
+		) VALUES (
+			#{articleTitle},
+			#{createDate},
+			#{createBy.id},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{id},
+			#{articleAuthor},
+			#{articleContent},
+			#{articleDept},
+			#{articleEdit},
+			#{articleKey},
+			#{articleTac},
+			#{articleTacsign},
+			#{articleActUrl},
+			#{articleActDate},
+			#{articleAbstract},
+			#{articleSource},
+			#{articleSourceSign},
+			#{mainUrl},
+			#{videoUrl},
+			#{videoImageUrl},
+			#{vistinum},
+			#{dotop},
+			#{itemNo},
+			#{flowSign},
+			#{source},
+			#{netSign},
+			#{pipeSing}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE website_tb_article SET 	
+			article_title = #{articleTitle},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			article_author = #{articleAuthor},
+			article_content = #{articleContent},
+			article_dept = #{articleDept},
+			article_edit = #{articleEdit},
+			article_key = #{articleKey},
+			article_tac = #{articleTac},
+			article_tacsign = #{articleTacsign},
+			article_act_url = #{articleActUrl},
+			article_act_date = #{articleActDate},
+			article_abstract = #{articleAbstract},
+			article_source = #{articleSource},
+			article_source_sign = #{articleSourceSign},
+			main_url = #{mainUrl},
+			video_url = #{videoUrl},
+			video_image_url = #{videoImageUrl},
+			vistinum = #{vistinum},
+			dotop = #{dotop},
+			item_no = #{itemNo},
+			flow_sign = #{flowSign},
+			source = #{source},
+			net_sign = #{netSign},
+			pipe_sing = #{pipeSing}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE website_tb_article SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
