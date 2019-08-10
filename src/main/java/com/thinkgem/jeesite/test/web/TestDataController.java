@@ -51,6 +51,7 @@ public class TestDataController extends BaseController {
 	public String list(TestData testData, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<TestData> page = testDataService.findPage(new Page<TestData>(request, response), testData); 
 		model.addAttribute("page", page);
+		//测试是是
 		return "jeesite/test/testDataList";
 	}
 
