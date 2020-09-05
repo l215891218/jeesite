@@ -136,13 +136,28 @@
     <function-signature>java.util.List getDictList(java.lang.String)</function-signature>
     <example>${fns:getDictList(type)}</example>  
   </function>
-  
+
   <function>
     <description>获取字典对象列表</description>
     <name>getDictListJson</name>
     <function-class>com.thinkgem.jeesite.modules.sys.utils.DictUtils</function-class>
     <function-signature>java.lang.String getDictListJson(java.lang.String)</function-signature>
-    <example>${fns:getDictListJson(type)}</example>  
+    <example>${fns:getDictListJson(type)}</example>
+  </function>
+
+  <function>
+    <description>通过value获取字典对象</description>
+    <name>getDictByVal</name>
+    <function-class>com.thinkgem.jeesite.modules.sys.utils.DictUtils</function-class>
+    <function-signature>com.thinkgem.jeesite.modules.sys.entity.Dict getDictByVal(java.lang.String,java.lang.String)</function-signature>
+    <example>${fns:getDictByVal(value,type)}</example>
+  </function>
+  <function>
+    <description>通过Label获取字典对象</description>
+    <name>getDictByLab</name>
+    <function-class>com.thinkgem.jeesite.modules.sys.utils.DictUtils</function-class>
+    <function-signature>com.thinkgem.jeesite.modules.sys.entity.Dict getDictByLab(java.lang.String,java.lang.String)</function-signature>
+    <example>${fns:getDictByLab(label,type)}</example>
   </function>
   
   <!-- Encodes -->

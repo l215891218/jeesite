@@ -49,13 +49,20 @@ public class DictUtils {
 		return defaultValue;
 	}
 
-	public static String getDictValue(String label, String type, String defaultLabel){
+	public static Dict getDictByLab(String label, String type){
 		if (StringUtils.isNotBlank(type) && StringUtils.isNotBlank(label)){
 			for (Dict dict : getDictList(type)){
 				if (type.equals(dict.getType()) && label.equals(dict.getLabel())){
-					return dict.getValue();
+					return dict;
 				}
 			}
+		}
+		return new Dict();
+	}
+	public static String getDictValue(String label, String type, String defaultLabel){
+		Dict dict = getDictByLab(label,type);
+		if (StringUtils.isNotBlank(dict.getId())){
+			return dict.getValue();
 		}
 		return defaultLabel;
 	}
