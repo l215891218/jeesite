@@ -173,6 +173,21 @@
 			<shiro:hasPermission name="website:websiteArticle:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
 			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
 		</div>
+
+		<div class="form-actions">
+			<form:hidden id="flag" path="act.flag"/>
+			<shiro:hasPermission name="website:websiteArticle:edit">
+				<c:if test="${websiteArticle.act.taskDefKey eq 'apply_end'}">
+					<input id="btnSubmit" class="btn btn-primary" type="submit" value="兑 现" onclick="$('#flag').val('yes')"/>&nbsp;
+				</c:if>
+				<c:if test="${websiteArticle.act.taskDefKey ne 'apply_end'}">
+					<input id="btnSubmit" class="btn btn-primary" type="submit" value="同 意" onclick="$('#flag').val('yes')"/>&nbsp;
+					<input id="btnSubmit" class="btn btn-inverse" type="submit" value="驳 回" onclick="$('#flag').val('no')"/>&nbsp;
+				</c:if>
+			</shiro:hasPermission>
+			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
+		</div>
+		<act:histoicFlow procInsId="${websiteArticle.act.procInsId}"/>
 	</form:form>
 </body>
 </html>

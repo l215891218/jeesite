@@ -110,8 +110,7 @@ public class ActTaskService extends BaseService {
 		List<Act> result = new ArrayList<Act>();
 		
 		// =============== 已经签收的任务  ===============
-		TaskQuery todoTaskQuery = taskService.createTaskQuery().taskAssignee(userId).active()
-				.includeProcessVariables().orderByTaskCreateTime().desc();
+		TaskQuery todoTaskQuery = taskService.createTaskQuery().taskAssignee(userId).active().includeProcessVariables().orderByTaskCreateTime().desc();
 		
 		// 设置查询条件
 		if (StringUtils.isNotBlank(act.getProcDefKey())){
@@ -140,8 +139,7 @@ public class ActTaskService extends BaseService {
 		}
 		
 		// =============== 等待签收的任务  ===============
-		TaskQuery toClaimQuery = taskService.createTaskQuery().taskCandidateUser(userId)
-				.includeProcessVariables().active().orderByTaskCreateTime().desc();
+		TaskQuery toClaimQuery = taskService.createTaskQuery().taskCandidateUser(userId).includeProcessVariables().active().orderByTaskCreateTime().desc();
 		
 		// 设置查询条件
 		if (StringUtils.isNotBlank(act.getProcDefKey())){

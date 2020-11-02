@@ -28,7 +28,7 @@ import com.thinkgem.jeesite.modules.website.service.WebsiteArticleService;
  * @version 2019-07-26
  */
 @Controller
-@RequestMapping(value = "${adminPath}/website/websiteArticle")
+	@RequestMapping(value = "${adminPath}/website/websiteArticle")
 public class WebsiteArticleController extends BaseController {
 
 	@Autowired
@@ -54,7 +54,6 @@ public class WebsiteArticleController extends BaseController {
 		return "modules/website/websiteArticleList";
 	}
 
-	@RequiresPermissions("website:websiteArticle:view")
 	@RequestMapping(value = "form")
 	public String form(WebsiteArticle websiteArticle, Model model) {
 		model.addAttribute("websiteArticle", websiteArticle);

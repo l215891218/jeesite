@@ -26,14 +26,24 @@ public class DictUtils {
 	private static DictDao dictDao = SpringContextHolder.getBean(DictDao.class);
 
 	public static final String CACHE_DICT_MAP = "dictMap";
-	
-	public static String getDictLabel(String value, String type, String defaultValue){
+
+
+	public static Dict getDictByVal(String value, String type){
 		if (StringUtils.isNotBlank(type) && StringUtils.isNotBlank(value)){
 			for (Dict dict : getDictList(type)){
 				if (type.equals(dict.getType()) && value.equals(dict.getValue())){
-					return dict.getLabel();
+					return dict;
 				}
 			}
+		}
+		return new Dict();
+	}
+
+
+	public static String getDictLabel(String value, String type, String defaultValue){
+		Dict dict = getDictByVal(value,type);
+		if (StringUtils.isNotBlank(dict.getId())){
+			return dict.getLabel();
 		}
 		return defaultValue;
 	}

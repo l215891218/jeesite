@@ -3,6 +3,7 @@
  */
 package com.thinkgem.jeesite.modules.website.entity;
 
+import com.thinkgem.jeesite.common.persistence.ActEntity;
 import org.hibernate.validator.constraints.Length;
 
 import com.thinkgem.jeesite.common.persistence.DataEntity;
@@ -12,7 +13,7 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
  * @author liwei
  * @version 2019-07-26
  */
-public class WebsiteArticle extends DataEntity<WebsiteArticle> {
+public class WebsiteArticle extends ActEntity<WebsiteArticle> {
 	
 	private static final long serialVersionUID = 1L;
 	private String articleTitle;		// 文章标题

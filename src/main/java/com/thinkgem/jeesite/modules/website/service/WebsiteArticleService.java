@@ -5,6 +5,9 @@ package com.thinkgem.jeesite.modules.website.service;
 
 import java.util.List;
 
+import com.thinkgem.jeesite.modules.act.service.ActTaskService;
+import com.thinkgem.jeesite.modules.act.utils.ActUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +25,11 @@ import com.thinkgem.jeesite.modules.website.dao.WebsiteArticleDao;
 @Transactional(readOnly = true)
 public class WebsiteArticleService extends CrudService<WebsiteArticleDao, WebsiteArticle> {
 
+
+	@Autowired
+	private ActTaskService actTaskService;
+
+
 	public WebsiteArticle get(String id) {
 		return super.get(id);
 	}
@@ -37,6 +45,10 @@ public class WebsiteArticleService extends CrudService<WebsiteArticleDao, Websit
 	@Transactional(readOnly = false)
 	public void save(WebsiteArticle websiteArticle) {
 		super.save(websiteArticle);
+
+
+		// 启动流程
+		actTaskService.startProcess("process", "website_tb_article", websiteArticle.getId(),websiteArticle.getArticleTitle());
 	}
 	
 	@Transactional(readOnly = false)
